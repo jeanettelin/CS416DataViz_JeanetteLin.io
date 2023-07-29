@@ -9,11 +9,11 @@ function createBarChart() {
       d.Year = +d.Year; // Convert to number
     });
 
-    // Calculate the count of athletes per sport
-    const sportsData = d3.rollups(data, v => v.length, d => d.Sport);
+    // Calculate the count of athletes per sport using d3.group
+    const sportsData = Array.from(d3.group(data, d => d.Sport), ([key, value]) => ({ key, value: value.length }));
 
     // Sort the data by the number of athletes in descending order
-    sportsData.sort((a, b) => b[1] - a[1]);
+    sportsData.sort((a, b) => b.value - a.value);
 
     // ... Rest of the code remains unchanged ...
     // ... Same as the previous version of main.js ...
