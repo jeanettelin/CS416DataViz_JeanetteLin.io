@@ -3,12 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>D3 Data Loading and Bar Chart</title>
+    <title>Summer Olympics Analysis</title>
     <!-- Include the d3.js library -->
-    <script src="d3.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        #header {
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        #chart-container {
+            margin: 20px auto;
+            max-width: 600px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            background-color: white;
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-    <!-- Your visualization container -->
+    <!-- Header section -->
+    <div id="header">
+        <h1>Summer Olympics Analysis</h1>
+    </div>
+
+    <!-- Chart section -->
     <div id="chart-container">
         <!-- D3-generated content (the bar chart) will be placed here -->
     </div>
