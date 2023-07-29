@@ -19,9 +19,9 @@ d3.csv("https://raw.githubusercontent.com/jeanettelin/CS416DataViz_JeanetteLin.i
   goldMedalsData = goldMedalsData.slice(0, 10);
 
   // Set up the SVG container
-  var svgWidth = 600;
-  var svgHeight = 400;
-  var margin = { top: 50, right: 20, bottom: 50, left: 60 };
+  var svgWidth = 800; // Adjust the width here
+  var svgHeight = 500; // Adjust the height here
+  var margin = { top: 80, right: 20, bottom: 50, left: 60 }; // Increase the top margin
   var chartWidth = svgWidth - margin.left - margin.right;
   var chartHeight = svgHeight - margin.top - margin.bottom;
 
