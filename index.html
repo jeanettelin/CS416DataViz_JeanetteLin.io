@@ -42,34 +42,35 @@
     </div>
 
     <!-- JavaScript code -->
-    <script>
-        // URL to the CSV file on GitHub (using raw.githubusercontent.com API)
-        const dataUrl = 'athleteEvents.csv';
+   <script>
+       var data = [20, 50, 80];
+       var r = 150;
 
-        // Function to load the data using D3 and create the bar chart
-        function createBarChart() {
-          d3.csv(dataUrl).then(data => {
-            // Convert the 'Year' and 'Sport' columns to appropriate data types
-            data.forEach(d => {
-              d.Year = +d.Year; // Convert to number
-            });
-
-            // Calculate the count of athletes per sport using d3.group
-            const sportsData = Array.from(d3.group(data, d => d.Sport), ([key, value]) => ({ key, value: value.length }));
-
-            // Sort the data by the number of athletes in descending order
-            sportsData.sort((a, b) => b.value - a.value);
-
-            // ... Rest of the code remains unchanged ...
-            // ... Same as the previous version of main.js ...
-
-          }).catch(error => {
-            console.error('Error loading data:', error);
-          });
-        }
-
-        // Call the function to create the bar chart when the page loads
-        createBarChart();
-    </script>
+       var canvas = d3.select("body").append("svg")
+                    .attr("width", 1500)
+                    .attr("height", 1500);
+       var color = d3.scale.ordinal()
+                   .range(["orange", "red", "green"]);
+       var group = canvas.append("g")
+                   .attr("transform", "translate(200, 200)");
+       var arc = d3.svg.arc()
+                .innerRadius(80)
+                .outerRadius(r);
+       var pie = d3.layout.pie()
+                 .value ( function(d) { return d; });
+       var arcs = group.selectAll(".arc")
+                 .data(pie(data))
+                 .enter()
+                 .append("g") 
+                 .attr("class", "arc");
+       arcs.append("path")
+       .attr("d", arc)
+       .attr("fill", function(d) { return color(d.data)});
+       arcs.append("text")
+       .attr("transform", function(d) { return "translate(" + arc.centroid(d) + ")"; })
+       .attr("text-anchor", "middle")
+       .attr("font-size", "1.5em")
+       .text(function(d) { return d.data; });
+</script>
 </body>
 </html>
