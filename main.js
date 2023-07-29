@@ -1,10 +1,14 @@
 ﻿// JavaScript code for creating the bar chart
 d3.csv("https://raw.githubusercontent.com/jeanettelin/CS416DataViz_JeanetteLin.io/main/athleteEvents.csv", function(data) {
   // Filter data to get only gold medals and group by country
-  var goldMedalsData = d3.nest()
-    .key(function(d) { return d.NOC; })
-    .rollup(function(leaves) { return d3.sum(leaves, function(d) { return d.Medal === "Gold" ? 1 : 0; }); })
-    .entries(data);
+  var goldMedalsData = d3.rollup(
+  data,
+  function(d) { return d3.sum(d, function(d) { return d.Medal === "Gold" ? 1 : 0; }); },
+  function(d) { return d.NOC; }
+  );
+
+  // Convert the rollup map to an array
+  goldMedalsData = Array.from(goldMedalsData, ([key, value]) => ({ key, value }));
 
   // Sort the data in descending order based on gold medals count
   goldMedalsData.sort(function(a, b) {
