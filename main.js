@@ -1,3 +1,6 @@
+const dataUrl = 'athleteEvents.csv';
+
+
 function createBarChart() {
   d3.csv(dataUrl).then(data => {
     console.log(data.slice(0, 5)); // Log the first 5 rows of the data
