@@ -1,5 +1,5 @@
 // URL to the CSV file on GitHub
-const dataUrl = 'https://raw.githubusercontent.com/cosmoduende/r-olympic-games/main/datasets/athleteEvents.csv';
+const dataUrl = 'athleteEvents.csv';
 
 // Function to load the data using D3 and create the bar chart
 function createBarChart() {
