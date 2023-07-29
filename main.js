@@ -1,9 +1,7 @@
-// Path to the local CSV file (assuming it's in the same directory as main.js and index.html)
-const dataUrl = 'athleteEvents.csv';
-
-// Function to load the data using D3 and create the bar chart
 function createBarChart() {
   d3.csv(dataUrl).then(data => {
+    console.log(data.slice(0, 5)); // Log the first 5 rows of the data
+
     // Convert the 'Year' and 'Sport' columns to appropriate data types
     data.forEach(d => {
       d.Year = +d.Year; // Convert to number
