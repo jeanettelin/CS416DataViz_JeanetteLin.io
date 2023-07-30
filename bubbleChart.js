@@ -3,7 +3,7 @@ function createBubbleChart() {
   // Load CSV data and world map GeoJSON data
   Promise.all([
     d3.csv("https://raw.githubusercontent.com/jeanettelin/CS416DataViz_JeanetteLin.io/main/athleteEvents.csv"),
-    d3.json("https://raw.githubusercontent.com/d3/d3-composite-projections/master/test/data/world-110m.geojson")
+    d3.json("https://datahub.io/core/geo-countries/datapackage.json")
   ]).then(function(data) {
     var csvData = data[0];
     var worldGeoJSON = data[1];
