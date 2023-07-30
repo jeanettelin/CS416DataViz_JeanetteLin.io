@@ -48,26 +48,30 @@
             font-size: 20px;
             margin-bottom: 10px;
         }
-
-        /* Bar chart styles */
         .bar {
-            fill: #FFD700;
+            opacity: 0.8;
         }
 
+            .bar:hover {
+                opacity: 1;
+            }
     </style>
 </head>
 <body>
     <h1 class="bubbly-heading">Summer Olympics</h1>
+
+    <!-- Year Slider -->
     <div class="year-slider-container">
         <div class="year-slider-label">Year Slider</div>
         <input type="range" min="2008" max="2016" step="4" value="2008" id="yearSlider">
-        <div id="selectedYear"></div>
+        <div id="selectedYear">2008</div>
     </div>
+
     <div class="chart-container">
         <div id="chart"></div>
         <div class="chart-description">
             <h3>Visualization Description</h3>
-            <p>This bar chart displays the top 10 countries with the most gold medals in the Summer Olympics.</p>
+            <p>This bar chart displays the top 10 countries with the most gold medals in the Summer Olympics for the selected year.</p>
             <p>Data Source: <a href="https://github.com/jeanettelin/CS416DataViz_JeanetteLin.io/blob/main/athleteEvents.csv" target="_blank">athleteEvents.csv</a></p>
         </div>
     </div>
