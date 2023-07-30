@@ -417,7 +417,7 @@ legendItems.exit().remove();
 updateLegend();
 
 function navigateToPage1() {
-    window.location.href = "page1.html";
+    window.location.href = "index.html";
 }
 
 // Function to navigate to page 2
@@ -435,8 +435,8 @@ function navigatePages(direction) {
     var currentPage = window.location.href;
     if (direction === -1 && currentPage.includes("page2.html")) {
         // Navigate back from page 2 to page 1
-        window.location.href = "page1.html";
-    } else if (direction === 1 && currentPage.includes("page1.html")) {
+        window.location.href = "index.html";
+    } else if (direction === 1 && currentPage.includes("index.html")) {
         // Navigate from page 1 to page 2
         window.location.href = "page2.html";
     } else if (direction === 1 && currentPage.includes("page2.html")) {

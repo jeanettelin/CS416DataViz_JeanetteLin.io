@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Olympians Time Series Line Chart - Page 1</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+            width: 100%;
+            padding: 20px; /* Added padding to reduce spacing */
+        }
+
+        .line-chart {
+            display: flex;
+            flex-direction: row;
+        }
+
+        #chart-container {
+            flex: 1;
+            max-width: 1000px;
+        }
+
+        .tooltip {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            pointer-events: none;
+            display: none;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        #pages-navigation {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .page-button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            margin: 0 5px;
+        }
+
+            .page-button:hover {
+                background-color: #45a049;
+            }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        #legend-container {
+            margin-top: 10px;
+        }
+
+        /* Additional style for the informational box */
+        #info-box {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <!-- Move the title and informational box above the chart -->
+        <h1>Ratio of Male vs Female Olympians</h1>
+        <div id="info-box">
+            <h2>Olympics 1908 - 1948</h2>
+            <p>
+                In the early years of the Olympics, the representation of Olympians was heavily skewed towards males,
+                reflecting the deeply ingrained societal norms and gender roles of the time. The first modern Olympic Games
+                held in Athens in 1896 saw a limited participation of female athletes, and it wasn't until the 1900 Paris Games
+                that women were officially allowed to compete. However, the number of female participants remained
+                significantly lower than their male counterparts. This underrepresentation of women in the Olympics mirrored
+                the wider gender disparities prevalent in society, where women faced numerous barriers in pursuing sports and
+                were often confined to traditional roles as wives and mothers. The limited opportunities for female athletes
+                were a stark reflection of the social attitudes and expectations that characterized the pre-World War II era.
+            </p>
+        </div>
+        <div class="line-chart">
+            <div id="chart-container">
+                <div id="chart"></div>
+            </div>
+            <div id="legend-container">
+                <div id="legend"></div>
+            </div>
+        </div>
+    </div>
+    <div id="tooltip" class="tooltip">
+        <div class="tooltip-percent-female"></div>
+        <div class="tooltip-percent-male"></div>
+    </div>
+    <div id="pages-navigation">
+        <button class="page-button" id="previous-button" onclick="navigatePages(-1)">Previous</button>
+        <button class="page-button" id="page1-button" onclick="navigateToPage1()">Page 1</button>
+        <button class="page-button" id="page2-button" onclick="navigateToPage2()">Page 2</button>
+        <button class="page-button" id="page3-button" onclick="navigateToPage3()">Page 3</button>
+        <button class="page-button" id="next-button" onclick="navigatePages(1)">Next</button>
+    </div>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="page1.js"></script>
+</body>
+</html>

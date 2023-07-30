@@ -128,10 +128,10 @@
         .attr("y", yPos - 10) // Adjust the vertical position of the text
         .attr("text-anchor", "middle")
         .attr("font-size", "14px")
-        .text("Female ratio is only 10% after 40 years");
+        .text("2016: Female ratio has increased to 46%");
 
 
-  var funfact = timeSeriesArray[timeSeriesArray.length - 3];
+  var funfact = timeSeriesArray[timeSeriesArray.length - 11];
       var xPos = x(parseInt(funfact.year));
       var yPos = y(funfact.female / (funfact.female + funfact.male));
       console.log(funfact)
@@ -153,7 +153,7 @@
         .attr("y", yPos - 10) // Adjust the vertical position of the text
         .attr("text-anchor", "middle")
         .attr("font-size", "14px")
-        .text("1932: Guatemala had 100% female Olympians");
+        .text("1976: Female make up 25% of all Olympian contestants");
 
 
 
@@ -414,7 +414,7 @@ legendItems.exit().remove();
 updateLegend();
 
 function navigateToPage1() {
-    window.location.href = "page1.html";
+    window.location.href = "index.html";
 }
 
 // Function to navigate to page 2
@@ -432,8 +432,8 @@ function navigatePages(direction) {
     var currentPage = window.location.href;
     if (direction === -1 && currentPage.includes("page2.html")) {
         // Navigate back from page 2 to page 1
-        window.location.href = "page1.html";
-    } else if (direction === 1 && currentPage.includes("page1.html")) {
+        window.location.href = "index.html";
+    } else if (direction === 1 && currentPage.includes("index.html")) {
         // Navigate from page 1 to page 2
         window.location.href = "page2.html";
     } else if (direction === 1 && currentPage.includes("page2.html")) {
