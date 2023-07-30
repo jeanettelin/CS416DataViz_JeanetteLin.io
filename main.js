@@ -94,5 +94,3 @@ d3.csv("https://raw.githubusercontent.com/jeanettelin/CS416DataViz_JeanetteLin.i
   });
 
   // Initialize the chart with data for the year 2008
-  updateChart(2008);
-});
