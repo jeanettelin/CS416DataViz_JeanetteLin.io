@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Olympians Time Series Line Chart</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        .chart-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 90vh;
+            width: 100%;
+            padding: 20px; /* Added padding to reduce spacing */
+        }
+
+        #chart-container {
+            flex: 1;
+            max-width: 800px;
+            margin: 20px;
+        }
+
+
+        .tooltip {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 10px;
+            pointer-events: none;
+            display: none;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+            .legend-item rect {
+                margin-right: 5px;
+            }
+
+        #pages-navigation {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .page-button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            margin: 0 5px;
+        }
+
+            .page-button:hover {
+                background-color: #45a049;
+            }
+
+        /* Additional style for filters */
+        #filters {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+        }
+
+        /* Style for the filter box */
+        #filter-box {
+            padding: 10px;
+            border: 2px solid #4CAF50; /* Green border */
+            border-radius: 5px;
+            background-color: #f0f0f0; /* Light gray tint background */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Style for the filter label and select */
+        #filter-label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        /* Style for the "Clear Filter" button */
+        #clear-filter {
+            padding: 8px 16px;
+            background-color: #f44336; /* Red background */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            margin-top: 10px;
+        }
+
+            #clear-filter:hover {
+                background-color: #d32f2f; /* Darker red on hover */
+            }
+    </style>
+</head>
+<body>
+    <div class="chart-container">
+        <div id="chart-container">
+            <h1 style="text-align: center;">Male and Female Olympians Over Time</h1>
+            <div id="chart"></div>
+        </div>
+        <div id="legend-container">
+            <div id="legend"></div>
+        </div>
+    </div>
+    <div id="filters">
+        <div id="filter-box">
+            <label id="filter-label" for="country-filter">Add Country Trend:</label>
+            <select id="country-filter">
+                <option value="All">All</option>
+            </select>
+            <button id="clear-filter">Clear Filter</button>
+        </div>
+    </div>
+    <div id="tooltip" class="tooltip"></div>
+    </div>
+    <div id="pages-navigation">
+        <button class="page-button" id="previous-button" onclick="navigatePages(-1)">Previous</button>
+        <button class="page-button" id="page1-button" onclick="navigateToPage1()">Page 1</button>
+        <button class="page-button" id="page2-button" onclick="navigateToPage2()">Page 2</button>
+        <button class="page-button" id="page3-button" onclick="navigateToPage3()">Page 3</button>
+        <button class="page-button" id="next-button" onclick="navigatePages(1)">Next</button>
+    </div>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="page3.js"></script>
+</body>
+</html>
