@@ -1,5 +1,4 @@
 ﻿ d3.csv("https://raw.githubusercontent.com/jeanettelin/CS416DataViz_JeanetteLin.io/main/athEvents.csv").then(function(data) {
-      // Prepare data for time series line chart
       var timeSeriesData = d3.rollup(
         data,
         function(d) { return d3.sum(d, function(d) { return 1; }); },
@@ -18,10 +17,8 @@
           }
         });
 
-        // Group data by country for each year
         var countryData = d3.group(data.filter(d => d.Year === key), d => d.NOC);
 
-        // Calculate the number of female contestants for each country
         var femaleContestantsByCountry = new Map();
         countryData.forEach(function(contestants, country) {
           var femaleCount = contestants.filter(d => d.Sex === "F").length;
@@ -35,15 +32,13 @@
         timeSeriesArray.push(entry);
       });
 
-      // Sort the data based on the year
       timeSeriesArray.sort(function(a, b) {
         return parseInt(a.year) - parseInt(b.year);
       });
 
-      // Set up the SVG container
-      var svgWidth = 800; // Adjust the width here
-      var svgHeight = 500; // Adjust the height here
-      var margin = { top: 80, right: 20, bottom: 70, left: 60 }; // Increase the top margin
+      var svgWidth = 800;
+      var svgHeight = 500; 
+      var margin = { top: 80, right: 20, bottom: 70, left: 60 }; 
       var chartWidth = svgWidth - margin.left - margin.right;
       var chartHeight = svgHeight - margin.top - margin.bottom;
 
@@ -55,7 +50,6 @@
       var chart = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-      // Set up scales
       var x = d3.scaleLinear()
         .range([0, chartWidth])
         .domain(d3.extent(timeSeriesArray, function(d) { return parseInt(d.year); }));
@@ -64,15 +58,13 @@
         .range([chartHeight, 0])
         .domain([0, 1]);
 
-      // Define colors for lines
       var colors = {
-        femaleCombined: "#FF1493", // Darker pink
-        maleCombined: "#1E90FF",   // Darker blue
-        femaleCountry: "#9370DB",  // Darker purple
-        maleCountry: "#228B22"     // Forest green
+        femaleCombined: "#FF1493", 
+        maleCombined: "#1E90FF",   
+        femaleCountry: "#9370DB", 
+        maleCountry: "#228B22"     
       };
 
-      // Prepare the line functions
       var lineFemaleCombined = d3.line()
         .x(function(d) { return x(parseInt(d.year)); })
         .y(function(d) { return y(d.female / (d.female + d.male)); });
@@ -89,58 +81,49 @@
         .x(function(d) { return x(parseInt(d.year)); })
         .y(function(d) { return y(d.countries[selectedCountry]?.male / (d.countries[selectedCountry]?.total || 1)); });
 
-      // Append combined female line to the chart (initially at y=0)
       var femaleCombinedLine = chart.append("path")
         .datum(timeSeriesArray)
         .attr("fill", "none")
         .attr("stroke", colors.femaleCombined)
-        .attr("stroke-width", 3) // Adjust line thickness
+        .attr("stroke-width", 3) 
         .attr("d", lineFemaleCombined);
 
-      // Append combined male line to the chart (initially at y=0)
       var maleCombinedLine = chart.append("path")
         .datum(timeSeriesArray)
         .attr("fill", "none")
         .attr("stroke", colors.maleCombined)
-        .attr("stroke-width", 3) // Adjust line thickness
+        .attr("stroke-width", 3)
         .attr("d", lineMaleCombined);
 
-      // Initialize selected country
       var selectedCountry = "All";
 
-      // Append country female line to the chart (initially at y=0)
       var femaleCountryLine = chart.append("path")
         .datum(timeSeriesArray)
         .attr("fill", "none")
         .attr("stroke", colors.femaleCountry)
-        .attr("stroke-width", 3) // Adjust line thickness
-        .style("opacity", 0) // Initially hidden
+        .attr("stroke-width", 3) 
+        .style("opacity", 0) 
         .attr("d", lineFemaleCountry);
 
-      // Append country male line to the chart (initially at y=0)
       var maleCountryLine = chart.append("path")
         .datum(timeSeriesArray)
         .attr("fill", "none")
         .attr("stroke", colors.maleCountry)
-        .attr("stroke-width", 3) // Adjust line thickness
-        .style("opacity", 0) // Initially hidden
+        .attr("stroke-width", 3) 
+        .style("opacity", 0) 
         .attr("d", lineMaleCountry);
 
-      // Append x-axis
       chart.append("g")
         .attr("class", "x-axis")
         .attr("transform", "translate(0," + chartHeight + ")")
         .call(d3.axisBottom(x).ticks(timeSeriesArray.length).tickFormat(d3.format("d")));
 
-      // Append y-axis
       var yAxis = chart.append("g")
         .attr("class", "y-axis")
         .call(d3.axisLeft(y).tickFormat(d3.format(".0%")));
 
-      // Add tooltip functionality
       var tooltip = d3.select("#tooltip");
 
-      // Append circles for pink line (Percent of All Female)
       chart.selectAll(".data-point-female")
         .data(timeSeriesArray)
         .enter()
@@ -160,7 +143,7 @@
             .style("left", event.pageX + "px")
             .style("top", event.pageY - 60 + "px")
             .html(
-              `<strong>${d.year}</strong><br>Female Contestants: ${d.female}<br>Male Contestants: ${d.male}` +
+              `<strong>${d.year}</strong><br>Female Olympians: ${d.female}<br>Male Olympians: ${d.male}` +
               `<br>Proportion of Women: ${(d.female / (d.female + d.male) * 100).toFixed(1)}%` +
               `<br>Country with Most Women: ${countryWithMostWomen[0]}<br>Proportion of Women in that Country: ${(countryWithMostWomen[1].proportionFemale * 100).toFixed(1)}%`
             );
@@ -169,7 +152,6 @@
           tooltip.style("display", "none");
         });
 
-      // Append circles for blue line (Percent of All Male)
       chart.selectAll(".data-point-male")
         .data(timeSeriesArray)
         .enter()
@@ -189,7 +171,7 @@
             .style("left", event.pageX + "px")
             .style("top", event.pageY - 60 + "px")
             .html(
-              `<strong>${d.year}</strong><br>Female Contestants: ${d.female}<br>Male Contestants: ${d.male}` +
+              `<strong>${d.year}</strong><br>Female Olympians: ${d.female}<br>Male Olympians: ${d.male}` +
               `<br>Proportion of Men: ${(d.male / (d.female + d.male) * 100).toFixed(1)}%`
             );
         })
@@ -197,7 +179,6 @@
           tooltip.style("display", "none");
         });
 
-      // Append circles for purple line (Percent of Female of Selected Country)
       chart.selectAll(".data-point-female-country")
         .data(timeSeriesArray)
         .enter()
@@ -220,7 +201,6 @@
           tooltip.style("display", "none");
         });
 
-      // Append circles for green line (Percent of Male of Selected Country)
       chart.selectAll(".data-point-male-country")
         .data(timeSeriesArray)
         .enter()
@@ -243,11 +223,9 @@
           tooltip.style("display", "none");
         });
 
-      // Initialize country filter options
       var countryFilterOptions = Array.from(new Set(data.map(d => d.NOC)));
       countryFilterOptions.unshift("All");
 
-      // Update country filter select options
       var countryFilterSelect = d3.select("#country-filter");
       countryFilterSelect.selectAll("option")
         .data(countryFilterOptions)
@@ -256,14 +234,12 @@
         .attr("value", function(d) { return d; })
         .text(function(d) { return d; });
 
-      // Update line chart based on country filter
       countryFilterSelect.on("change", function() {
         selectedCountry = this.value;
         updateLineChart(selectedCountry);
         updateLegend(selectedCountry);
       });
 
-      // Clear filter
       d3.select("#clear-filter").on("click", function() {
         selectedCountry = "All";
         countryFilterSelect.property("value", "All");
@@ -271,12 +247,10 @@
         updateLegend("All");
       });
 
-      // Call the update functions with the default selected country
       countryFilterSelect.property("value", "All").dispatch("change");
       d3.select("#clear-filter").dispatch("click");
 
 
-    // Update function to toggle male data points visibility
     function toggleMaleDataPoints() {
       var maleDataPointsOpacity = maleCountryLine.style("opacity");
       if (maleDataPointsOpacity == 0) {
@@ -288,10 +262,8 @@
       }
     }
 
-    // Attach event listener to the "Toggle Male Data Points" button
     d3.select("#toggle-male-data-points").on("click", toggleMaleDataPoints);
 
-    // Function to update line chart based on country filter
     function updateLineChart(selectedCountry) {
       var filteredData = timeSeriesArray;
       if (selectedCountry !== "All") {
@@ -302,26 +274,22 @@
 
       y.domain([0, 1]);
 
-      // Update purple line (Percent of Female of Selected Country)
       femaleCountryLine.datum(filteredData)
-        .style("opacity", selectedCountry !== "All" ? 0.7 : 0) // Adjust opacity
+        .style("opacity", selectedCountry !== "All" ? 0.7 : 0) 
         .transition()
         .duration(1000)
         .attr("d", lineFemaleCountry);
 
-      // Update green line (Percent of Male of Selected Country)
       maleCountryLine.datum(filteredData)
-        .style("opacity", selectedCountry !== "All" ? 0.7 : 0) // Adjust opacity
+        .style("opacity", selectedCountry !== "All" ? 0.7 : 0) 
         .transition()
         .duration(1000)
         .attr("d", lineMaleCountry);
 
-      // Update y-axis
       yAxis.transition()
         .duration(1000)
         .call(d3.axisLeft(y).tickFormat(d3.format(".0%")));
 
-      // Update combined female data points
       chart.selectAll(".data-point-female")
         .data(filteredData, function(d) { return d.year; })
         .transition()
@@ -329,7 +297,6 @@
         .attr("cx", function(d) { return x(parseInt(d.year)); })
         .attr("cy", function(d) { return y(d.female / (d.female + d.male)); });
 
-      // Update purple data points (Percent of Female of Selected Country)
       chart.selectAll(".data-point-female-country")
         .data(filteredData, function(d) { return d.year; })
         .join(
@@ -365,7 +332,6 @@
           }
         );
 
-      // Update combined male data points
       chart.selectAll(".data-point-male")
         .data(filteredData, function(d) { return d.year; })
         .transition()
@@ -373,7 +339,6 @@
         .attr("cx", function(d) { return x(parseInt(d.year)); })
         .attr("cy", function(d) { return y(d.male / (d.female + d.male)); });
 
-      // Update green data points (Percent of Male of Selected Country)
       chart.selectAll(".data-point-male-country")
         .data(filteredData, function(d) { return d.year; })
         .join(
@@ -410,15 +375,11 @@
         );
     }
 
-    // Function to update legend based on country filter
   function updateLegend(selectedCountry) {
-    // Select the legend container
     var legendContainer = d3.select("#legend-container");
 
-    // Remove any existing legends
     legendContainer.selectAll("*").remove();
 
-    // Define the legend data
     var legendData = [
       { color: colors.femaleCombined, label: "Percent of All Female" },
       { color: colors.maleCombined, label: "Percent of All Male" },
@@ -426,7 +387,6 @@
       { color: colors.maleCountry, label: `Percent of Male of ${selectedCountry === "All" ? "All Countries" : selectedCountry}` }
     ];
 
-    // Create the legend items
     var legendItems = legendContainer.selectAll(".legend-item")
       .data(legendData)
       .enter()
@@ -436,57 +396,46 @@
       .style("align-items", "center")
       .style("margin-right", "20px");
 
-    // Append legend icons (colored squares)
     legendItems.append("div")
       .style("width", "12px")
       .style("height", "12px")
       .style("background-color", d => d.color)
       .style("margin-right", "8px");
 
-    // Append legend labels
     legendItems.append("div")
       .text(d => d.label);
   }
 
-  // Call the updateLegend function with the default selected country
   updateLegend("All");
 
 
 function navigateToPage1() {
-    window.location.href = "page1.html";
+    window.location.href = "index.html";
 }
 
-// Function to navigate to page 2
 function navigateToPage2() {
     window.location.href = "page2.html";
 }
 
-// Function to navigate to page 3
 function navigateToPage3() {
     window.location.href = "page3.html";
 }
 
-// Function to navigate pages based on direction
 function navigatePages(direction) {
     var currentPage = window.location.href;
     if (direction === -1 && currentPage.includes("page2.html")) {
-        // Navigate back from page 2 to page 1
         window.location.href = "index.html";
     } 
     else if (direction === -1 && currentPage.includes("page3.html")) {
-        // Navigate back from page 3 to page 2
         window.location.href = "page2.html";
     }
         else if (direction === 1 && currentPage.includes("index.html")) {
-        // Navigate from page 1 to page 2
         window.location.href = "page2.html";
     } else if (direction === 1 && currentPage.includes("page2.html")) {
-        // Navigate from page 2 to page 3
         window.location.href = "page3.html";
     }
 }
 
-// Attach event listeners to the page navigation buttons
 document.getElementById("page1-button").addEventListener("click", navigateToPage1);
 document.getElementById("page2-button").addEventListener("click", navigateToPage2);
 document.getElementById("page3-button").addEventListener("click", navigateToPage3);

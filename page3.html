@@ -15,14 +15,15 @@
             align-items: center;
             min-height: 90vh;
             width: 100%;
-            padding: 20px; /* Added padding to reduce spacing */
+            padding: 20px;
         }
 
         #chart-container {
             flex: 1;
-            max-width: 800px;
+            max-width: 1000px;
             margin: 20px;
         }
+
 
 
         .tooltip {
@@ -63,7 +64,6 @@
                 background-color: #45a049;
             }
 
-        /* Additional style for filters */
         #filters {
             display: flex;
             justify-content: center;
@@ -75,28 +75,25 @@
             transform: translateY(-50%);
         }
 
-        /* Style for the filter box */
         #filter-box {
             padding: 10px;
-            border: 2px solid #4CAF50; /* Green border */
+            border: 2px solid #4CAF50; 
             border-radius: 5px;
-            background-color: #f0f0f0; /* Light gray tint background */
+            background-color: #f0f0f0; 
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* Style for the filter label and select */
         #filter-label {
             margin-bottom: 10px;
             font-weight: bold;
         }
 
-        /* Style for the "Clear Filter" button */
         #clear-filter {
             padding: 8px 16px;
-            background-color: #f44336; /* Red background */
+            background-color: #f44336; 
             color: white;
             border: none;
             border-radius: 5px;
@@ -106,20 +103,34 @@
         }
 
             #clear-filter:hover {
-                background-color: #d32f2f; /* Darker red on hover */
+                background-color: #d32f2f; 
             }
     </style>
 </head>
 <body>
     <div class="chart-container">
         <div id="chart-container">
-            <h1 style="text-align: center;">Male and Female Olympians Over Time</h1>
+            <h1 style="text-align: center;">
+            Ratio of Male vs Female Summer Olympians Through History</h1>
+            <h2 style="text-align: center;"> Ratio by Country</h2>
+            <p style="text-align: center;"> In this page, we can explore the gender ratio by each country. In the "Add Country Trend", 
+            we can add a country and see how their ratio of females trend throughout the years. Most countries follow the general trend of
+            having their male and female lines heading towards the middle ground line of 50%, while some countries see large fluctuations from year to year. 
+
+           </p>
+
+             <p style="text-align: center;"> For example, we if we look at USA, we can see the percentages are very close to the overall trend,
+            and we also see that the number of females had exceed males for USA in 2016. If we look at CHN (China), we see that after not having participated
+            in the Olympics for several decades due to political reasons, when they did rejoin, their ratio of females jumped up.  
+           </p>
             <div id="chart"></div>
         </div>
         <div id="legend-container">
             <div id="legend"></div>
         </div>
     </div>
+
+
     <div id="filters">
         <div id="filter-box">
             <label id="filter-label" for="country-filter">Add Country Trend:</label>
